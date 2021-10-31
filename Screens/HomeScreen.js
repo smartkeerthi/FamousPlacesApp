@@ -39,7 +39,7 @@ const HomeScreen = ({ navigation }) => {
   }, [places]);
   return (
     <>
-      <StatusBar style="dark" />
+      <StatusBar style="auto" />
       {loading ? (
         <View
           style={{ alignItems: "center", justifyContent: "center", height }}
@@ -79,19 +79,17 @@ const HomeScreen = ({ navigation }) => {
               });
               return (
                 <View style={styles.coverImgContainer}>
-                  <SharedElement id={`item.${item._id}.image`}>
-                    <Animated.Image
-                      source={{ uri: item.coverImg }}
-                      style={[
-                        {
-                          width,
-                          height,
-                          resizeMode: "cover",
-                          opacity,
-                        },
-                      ]}
-                    />
-                  </SharedElement>
+                  <Animated.Image
+                    source={{ uri: item.coverImg }}
+                    style={[
+                      {
+                        width,
+                        height,
+                        resizeMode: "cover",
+                        opacity,
+                      },
+                    ]}
+                  />
                   <Animated.View
                     style={[
                       styles.textContainer,
@@ -104,9 +102,7 @@ const HomeScreen = ({ navigation }) => {
                         navigation.navigate("Place Details", { item });
                       }}
                     >
-                      {/* <SharedElement id={`item.${item._id}.text`}> */}
                       <Text style={styles.textHeading}>{item.name}</Text>
-                      {/* </SharedElement> */}
                       <Text numberOfLines={3} style={styles.textContent}>
                         {item.content}
                       </Text>
