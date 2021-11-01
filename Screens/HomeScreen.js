@@ -67,7 +67,11 @@ const HomeScreen = ({ navigation }) => {
               ];
               const opacity = scrollX.interpolate({
                 inputRange,
-                outputRange: [0.7, 1, 0.7],
+                outputRange: [0.5, 1, 0.5],
+              });
+              const scale = scrollX.interpolate({
+                inputRange,
+                outputRange: [1.4, 1, 1.4],
               });
               const textOpacity = scrollX.interpolate({
                 inputRange,
@@ -79,17 +83,20 @@ const HomeScreen = ({ navigation }) => {
               });
               return (
                 <View style={styles.coverImgContainer}>
-                  <Animated.Image
-                    source={{ uri: item.coverImg }}
-                    style={[
-                      {
-                        width,
-                        height,
-                        resizeMode: "cover",
-                        opacity,
-                      },
-                    ]}
-                  />
+                  <View style={{ width, height, overflow: "hidden" }}>
+                    <Animated.Image
+                      source={{ uri: item.coverImg }}
+                      style={[
+                        {
+                          width,
+                          height,
+                          resizeMode: "cover",
+                          opacity,
+                          transform: [{ scale }],
+                        },
+                      ]}
+                    />
+                  </View>
                   <Animated.View
                     style={[
                       styles.textContainer,

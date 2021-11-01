@@ -1,6 +1,6 @@
 import { MaterialIcons } from "@expo/vector-icons";
 import { StatusBar } from "expo-status-bar";
-import React from "react";
+import React, { useEffect, useRef } from "react";
 import {
   Image,
   StyleSheet,
@@ -10,6 +10,7 @@ import {
   ScrollView,
   FlatList,
   TouchableOpacity,
+  Animated,
 } from "react-native";
 import MapView, { Circle, Marker } from "react-native-maps";
 import { SafeAreaView } from "react-native-safe-area-context";
@@ -19,6 +20,16 @@ const { width, height } = Dimensions.get("window");
 const PlaceDetailsScreen = ({ navigation, route }) => {
   const { item } = route.params;
   const images = item.images.split(", ");
+  const slideUp = useRef(new Animated.Value(height)).current;
+
+  useEffect(() => {
+    Animated.timing(slideUp, {
+      toValue: 0,
+      duration: 600,
+      delay: 100,
+      useNativeDriver: true,
+    }).start();
+  }, []);
   return (
     <SafeAreaView style={{ flex: 1 }}>
       <StatusBar hidden={true} />
@@ -32,7 +43,7 @@ const PlaceDetailsScreen = ({ navigation, route }) => {
         </TouchableOpacity>
         <Image
           source={{ uri: item.coverImg }}
-          style={[StyleSheet.absoluteFillObject, { height: height / 2 }]}
+          style={[StyleSheet.absoluteFillObject, { height: height / 1.2 }]}
         />
         <ScrollView
           contentContainerStyle={{
@@ -40,7 +51,12 @@ const PlaceDetailsScreen = ({ navigation, route }) => {
             paddingTop: height / 2 - 100,
           }}
         >
-          <View style={styles.bottomSheet}>
+          <Animated.View
+            style={[
+              styles.bottomSheet,
+              { transform: [{ translateY: slideUp }] },
+            ]}
+          >
             <Text style={styles.title}>{item.name}</Text>
             <FlatList
               data={images}
@@ -98,7 +114,7 @@ const PlaceDetailsScreen = ({ navigation, route }) => {
                 fillColor={"rgba(107, 230, 255, 0.3)"}
               />
             </MapView>
-          </View>
+          </Animated.View>
         </ScrollView>
       </View>
     </SafeAreaView>
