@@ -18,7 +18,8 @@
       "adaptiveIcon": {
         "foregroundImage": "./assets/images/AppLogo.png",
         "backgroundColor": "#FFFFFF"
-      }
+      },
+      "package": "com.keerthivasank.famousplaces"
     },
     "web": {
       "favicon": "./assets/images/AppLogo.png"
